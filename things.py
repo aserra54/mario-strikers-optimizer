@@ -1,7 +1,8 @@
 #strength speed shooting passing technique
 
-from msbl.data import *
-from msbl.prototype import prototypes
+from msbl.equipment import *
+from msbl.player import *
+from msbl.prototype import *
 
 
 for h in head_pieces:
