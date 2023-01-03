@@ -9,6 +9,7 @@ class Prototype:
     shooting: str
     passing: str
     technique: str
+    primary: str
 
     def satisfies(self, player, equipment_set):
         return (
@@ -29,7 +30,14 @@ class Prototype:
 
 
 prototypes = [
-    Prototype(name='Defender', strength='17+', speed='17+', shooting='-', passing='8+', technique='5+'),
-    Prototype(name='Playmaker', strength='9+', speed='17+', shooting='-', passing='17+', technique='4+'),
-    Prototype(name='Striker', strength='17+', speed='7+', shooting='17+', passing='-', technique='6+'),
+    Prototype(name='Defender', strength='17+', speed='17+', shooting='-', passing='8+', technique='5+', primary=['strength', 'speed']),
+    Prototype(name='Finesse', strength='-', speed='14+', shooting='9+', passing='8+', technique='14+', primary=['speed', 'technique']),
+    Prototype(name='Halfback', strength='14+', speed='8+', shooting='9+', passing='-', technique='14+', primary=['strength', 'technique']),
+    Prototype(name='Midfielder', strength='17+', speed='9+', shooting='-', passing='17+', technique='-', primary=['strength', 'passing']),
+    Prototype(name='Playmaker', strength='9+', speed='17+', shooting='-', passing='17+', technique='4+', primary=['speed', 'passing']),
+    Prototype(name='Sniper', strength='9+', speed='4+', shooting='17+', passing='-', technique='17+', primary=['shooting', 'technique']),
+    Prototype(name='Speedster', strength='4+', speed='17+', shooting='17+', passing='-', technique='9+', primary=['speed', 'shooting']),
+    Prototype(name='Striker', strength='17+', speed='7+', shooting='17+', passing='-', technique='6+', primary=['strength', 'shooting']),
+    Prototype(name='Sweeper', strength='8+', speed='9+', shooting='-', passing='14+', technique='14+', primary=['passing', 'technique']),
+    Prototype(name='Winger', strength='8+', speed='9+', shooting='14+', passing='14+', technique='-', primary=['shooting', 'passing']),
 ]
