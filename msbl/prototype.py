@@ -29,6 +29,7 @@ class Prototype:
 
 
 prototypes = [
-    Prototype(name='Striker', strength='17+', speed='7+', shooting='17+', passing='-', technique='7+'),
-    Prototype(name='Defender', strength='17+', speed='17+', shooting='-', passing='7+', technique='-'),
+    Prototype(name='Defender', strength='17+', speed='17+', shooting='-', passing='8+', technique='5+'),
+    Prototype(name='Playmaker', strength='9+', speed='17+', shooting='-', passing='17+', technique='4+'),
+    Prototype(name='Striker', strength='17+', speed='7+', shooting='17+', passing='-', technique='6+'),
 ]
