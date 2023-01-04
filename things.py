@@ -6,9 +6,8 @@ from msbl.prototype import *
 
 
 def generate_candidates():
-    # player name => prototype name => equipped player
-    candidates = {}
-    n = 0
+    # (player, prototype, equipped player)
+    candidates = []
     for h in head_pieces:
         for a in arm_pieces:
             for b in body_pieces:
@@ -18,12 +17,7 @@ def generate_candidates():
                         for p in players:
                             if t.satisfies(p, e):
                                 ep = EquippedPlayer(p, e)
-                                if p.name not in candidates:
-                                    candidates[p.name] = {}
-                                if t.name not in candidates[p.name]:
-                                    candidates[p.name][t.name] = []
-                                candidates[p.name][t.name].append(ep)
-                                n += 1
+                                candidates.append((p, t, ep))
                                 # print('==========')
                                 # print(f'{p.name} ({t.name})')
                                 # print('-----')
@@ -39,11 +33,26 @@ def generate_candidates():
                                 # print(f'  PA: {ep.passing:2} ({e.passing:+})')
                                 # print(f'  TE: {ep.technique:2} ({e.technique:+})')
                                 # print('==========')
-    print(f'{n} candidates total')
+    return candidates
+
+
+def emit(candidates):
+    # print(len(candidates))
+    # return
+    for p, t, ep in candidates:
+        elems = [
+            p.name,
+            t.name,
+            ep.set.cost,
+            ep.set.head.name, ep.set.arms.name, ep.set.body.name, ep.set.legs.name,
+            ep.strength, ep.speed, ep.shooting, ep.passing, ep.technique,
+        ]
+        print('\t'.join([str(elem) for elem in elems]))
 
 
 def main():
     candidates = generate_candidates()
+    emit(candidates)
 
 
 if __name__ == '__main__':

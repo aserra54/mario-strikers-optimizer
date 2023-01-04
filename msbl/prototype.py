@@ -9,7 +9,6 @@ class Prototype:
     shooting: str
     passing: str
     technique: str
-    primary: str
 
     def satisfies(self, player, equipment_set):
         return (
@@ -30,14 +29,14 @@ class Prototype:
 
 
 prototypes = [
-    Prototype(name='Defender', strength='17+', speed='17+', shooting='-', passing='8+', technique='5+', primary=['strength', 'speed']),
-    Prototype(name='Finesse', strength='-', speed='14+', shooting='9+', passing='8+', technique='14+', primary=['speed', 'technique']),
-    Prototype(name='Halfback', strength='14+', speed='8+', shooting='9+', passing='-', technique='14+', primary=['strength', 'technique']),
-    Prototype(name='Midfielder', strength='17+', speed='9+', shooting='-', passing='17+', technique='-', primary=['strength', 'passing']),
-    Prototype(name='Playmaker', strength='9+', speed='17+', shooting='-', passing='17+', technique='4+', primary=['speed', 'passing']),
-    Prototype(name='Sniper', strength='9+', speed='4+', shooting='17+', passing='-', technique='17+', primary=['shooting', 'technique']),
-    Prototype(name='Speedster', strength='4+', speed='17+', shooting='17+', passing='-', technique='9+', primary=['speed', 'shooting']),
-    Prototype(name='Striker', strength='17+', speed='7+', shooting='17+', passing='-', technique='6+', primary=['strength', 'shooting']),
-    Prototype(name='Sweeper', strength='8+', speed='9+', shooting='-', passing='14+', technique='14+', primary=['passing', 'technique']),
-    Prototype(name='Winger', strength='8+', speed='9+', shooting='14+', passing='14+', technique='-', primary=['shooting', 'passing']),
+    Prototype(name='Defender', strength='17+', speed='21+', shooting='-', passing='9+', technique='-'), # ST+SP
+    Prototype(name='Finisher', strength='11+', speed='15+', shooting='12+', passing='7+', technique='15+'), # SP+TE
+    Prototype(name='Midfielder', strength='18+', speed='11+', shooting='-', passing='17+', technique='-'), # ST+PA
+    Prototype(name='Playmaker', strength='10+', speed='18+', shooting='-', passing='18+', technique='-'), # SP+PA
+    Prototype(name='Poacher', strength='16+', speed='7+', shooting='15+', passing='-', technique='16+'), # ST+TE
+    Prototype(name='Sniper', strength='10+', speed='10+', shooting='17+', passing='-', technique='19+'), # SH+TE
+    Prototype(name='Speedster', strength='8+', speed='17+', shooting='17+', passing='-', technique='10+'), # SP+SH
+    Prototype(name='Striker', strength='17+', speed='7+', shooting='20+', passing='-', technique='10+'), # ST+SH
+    Prototype(name='Sweeper', strength='10+', speed='11+', shooting='11+', passing='15+', technique='15+'), # PA+TE
+    Prototype(name='Winger', strength='10+', speed='11+', shooting='15+', passing='14+', technique='11+'), # SH+PA
 ]
