@@ -1,10 +1,13 @@
-from collections import namedtuple
 from dataclasses import dataclass
 from msbl.equipment import EquipmentSet
-from msbl.stat import Stat
+from msbl.stat import Stat, StatBased
 
 
-Player = namedtuple('Player', 'name strength speed shooting passing technique')
+class Player(StatBased):
+
+    def __init__(self, name, st, sp, sh, pa, te):
+        super().__init__(st, sp, sh, pa, te)
+        self.name = name
 
 
 @dataclass
@@ -14,23 +17,23 @@ class EquippedPlayer:
 
     @property
     def strength(self):
-        return self.__safe_stat(self.player.strength + self.set.get(Stat.ST))
+        return self.__safe_stat(self.player.get(Stat.ST) + self.set.get(Stat.ST))
 
     @property
     def speed(self):
-        return self.__safe_stat(self.player.speed + self.set.get(Stat.SP))
+        return self.__safe_stat(self.player.get(Stat.SP) + self.set.get(Stat.SP))
 
     @property
     def shooting(self):
-        return self.__safe_stat(self.player.shooting + self.set.get(Stat.SH))
+        return self.__safe_stat(self.player.get(Stat.SH) + self.set.get(Stat.SH))
 
     @property
     def passing(self):
-        return self.__safe_stat(self.player.passing + self.set.get(Stat.PA))
+        return self.__safe_stat(self.player.get(Stat.PA) + self.set.get(Stat.PA))
 
     @property
     def technique(self):
-        return self.__safe_stat(self.player.technique + self.set.get(Stat.TE))
+        return self.__safe_stat(self.player.get(Stat.TE) + self.set.get(Stat.TE))
 
     def __safe_stat(self, x):
         return max(min(x, 25), 1)
@@ -56,9 +59,4 @@ __raw_players = [
 ]
 
 
-def __to_player(player):
-    return Player(name=player[0], strength=player[1], speed=player[2], shooting=player[3], passing=player[4],
-        technique=player[5])
-
-
-players = [__to_player(player) for player in __raw_players]
+players = [Player(*player) for player in __raw_players]
