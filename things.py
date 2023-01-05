@@ -1,8 +1,8 @@
 #strength speed shooting passing technique
 
+from msbl.archetype import *
 from msbl.equipment import *
 from msbl.player import *
-from msbl.prototype import *
 
 
 def generate_candidates():
@@ -13,10 +13,10 @@ def generate_candidates():
             for b in body_pieces:
                 for l in leg_pieces:
                     e = EquipmentSet(h, a, b, l)
-                    for t in prototypes:
+                    for t in archetypes:
                         for p in players:
-                            if t.satisfies(p, e):
-                                ep = EquippedPlayer(p, e)
+                            ep = EquippedPlayer(p, e)
+                            if t.satisfies(ep):
                                 candidates.append((p, t, ep))
                                 # print('==========')
                                 # print(f'{p.name} ({t.name})')
