@@ -1,8 +1,13 @@
-from collections import namedtuple
 from dataclasses import dataclass
+from msbl.stat import Stat, StatBased
 
 
-Equipment = namedtuple('Equipment', 'name cost strength speed shooting passing technique')
+class Equipment(StatBased):
+
+    def __init__(self, name, cost, st, sp, sh, pa, te):
+        super().__init__(st, sp, sh, pa, te)
+        self.name = name
+        self.cost = cost
 
 
 @dataclass
@@ -14,23 +19,23 @@ class EquipmentSet:
 
     @property
     def strength(self):
-        return self.head.strength + self.arms.strength + self.body.strength + self.legs.strength
+        return self.head.get(Stat.ST) + self.arms.get(Stat.ST) + self.body.get(Stat.ST) + self.legs.get(Stat.ST)
 
     @property
     def speed(self):
-        return self.head.speed + self.arms.speed + self.body.speed + self.legs.speed
+        return self.head.get(Stat.SP) + self.arms.get(Stat.SP) + self.body.get(Stat.SP) + self.legs.get(Stat.SP)
 
     @property
     def shooting(self):
-        return self.head.shooting + self.arms.shooting + self.body.shooting + self.legs.shooting
+        return self.head.get(Stat.SH) + self.arms.get(Stat.SH) + self.body.get(Stat.SH) + self.legs.get(Stat.SH)
 
     @property
     def passing(self):
-        return self.head.passing + self.arms.passing + self.body.passing + self.legs.passing
+        return self.head.get(Stat.PA) + self.arms.get(Stat.PA) + self.body.get(Stat.PA) + self.legs.get(Stat.PA)
 
     @property
     def technique(self):
-        return self.head.technique + self.arms.technique + self.body.technique + self.legs.technique
+        return self.head.get(Stat.TE) + self.arms.get(Stat.TE) + self.body.get(Stat.TE) + self.legs.get(Stat.TE)
 
     @property
     def cost(self):
@@ -89,12 +94,7 @@ __raw_equipment = {
 }
 
 
-def __to_equipment(item):
-    return Equipment(name=item[0], cost=item[1], strength=item[2], speed=item[3], shooting=item[4], passing=item[5],
-        technique=item[6])
-
-
-head_pieces = [__to_equipment(piece) for piece in __raw_equipment['head']]
-arm_pieces = [__to_equipment(piece) for piece in __raw_equipment['arms']]
-body_pieces = [__to_equipment(piece) for piece in __raw_equipment['body']]
-leg_pieces = [__to_equipment(piece) for piece in __raw_equipment['legs']]
+head_pieces = [Equipment(*piece) for piece in __raw_equipment['head']]
+arm_pieces = [Equipment(*piece) for piece in __raw_equipment['arms']]
+body_pieces = [Equipment(*piece) for piece in __raw_equipment['body']]
+leg_pieces = [Equipment(*piece) for piece in __raw_equipment['legs']]
