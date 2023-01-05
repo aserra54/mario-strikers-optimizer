@@ -1,6 +1,7 @@
 from collections import namedtuple
 from dataclasses import dataclass
 from msbl.equipment import EquipmentSet
+from msbl.stat import Stat
 
 
 Player = namedtuple('Player', 'name strength speed shooting passing technique')
@@ -13,23 +14,23 @@ class EquippedPlayer:
 
     @property
     def strength(self):
-        return self.__safe_stat(self.player.strength + self.set.strength)
+        return self.__safe_stat(self.player.strength + self.set.get(Stat.ST))
 
     @property
     def speed(self):
-        return self.__safe_stat(self.player.speed + self.set.speed)
+        return self.__safe_stat(self.player.speed + self.set.get(Stat.SP))
 
     @property
     def shooting(self):
-        return self.__safe_stat(self.player.shooting + self.set.shooting)
+        return self.__safe_stat(self.player.shooting + self.set.get(Stat.SH))
 
     @property
     def passing(self):
-        return self.__safe_stat(self.player.passing + self.set.passing)
+        return self.__safe_stat(self.player.passing + self.set.get(Stat.PA))
 
     @property
     def technique(self):
-        return self.__safe_stat(self.player.technique + self.set.technique)
+        return self.__safe_stat(self.player.technique + self.set.get(Stat.TE))
 
     def __safe_stat(self, x):
         return max(min(x, 25), 1)

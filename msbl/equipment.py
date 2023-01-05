@@ -10,32 +10,21 @@ class Equipment(StatBased):
         self.cost = cost
 
 
-@dataclass
-class EquipmentSet:
-    head: Equipment
-    arms: Equipment
-    body: Equipment
-    legs: Equipment
+class EquipmentSet(StatBased):
 
-    @property
-    def strength(self):
-        return self.head.get(Stat.ST) + self.arms.get(Stat.ST) + self.body.get(Stat.ST) + self.legs.get(Stat.ST)
-
-    @property
-    def speed(self):
-        return self.head.get(Stat.SP) + self.arms.get(Stat.SP) + self.body.get(Stat.SP) + self.legs.get(Stat.SP)
-
-    @property
-    def shooting(self):
-        return self.head.get(Stat.SH) + self.arms.get(Stat.SH) + self.body.get(Stat.SH) + self.legs.get(Stat.SH)
-
-    @property
-    def passing(self):
-        return self.head.get(Stat.PA) + self.arms.get(Stat.PA) + self.body.get(Stat.PA) + self.legs.get(Stat.PA)
-
-    @property
-    def technique(self):
-        return self.head.get(Stat.TE) + self.arms.get(Stat.TE) + self.body.get(Stat.TE) + self.legs.get(Stat.TE)
+    def __init__(self, head, arms, body, legs):
+        pieces = [head, arms, body, legs]
+        super().__init__(
+            sum([piece.get(Stat.ST) for piece in pieces]),
+            sum([piece.get(Stat.SP) for piece in pieces]),
+            sum([piece.get(Stat.SH) for piece in pieces]),
+            sum([piece.get(Stat.PA) for piece in pieces]),
+            sum([piece.get(Stat.TE) for piece in pieces]),
+        )
+        self.head = head
+        self.arms = arms
+        self.body = body
+        self.legs = legs
 
     @property
     def cost(self):
