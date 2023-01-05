@@ -6,41 +6,34 @@ from msbl.player import *
 from msbl.stat import *
 
 
-def generate_candidates():
-    # (player, prototype, equipped player)
-    candidates = []
+def generate_equipment_sets():
+    sets = []
     for h in head_pieces:
         for a in arm_pieces:
             for b in body_pieces:
                 for l in leg_pieces:
-                    e = EquipmentSet(h, a, b, l)
-                    for t in archetypes:
-                        for p in players:
-                            ep = EquippedPlayer(p, e)
-                            if t.satisfies(ep):
-                                candidates.append((p, t, ep))
-                                # print('==========')
-                                # print(f'{p.name} ({t.name})')
-                                # print('-----')
-                                # print(f'  Head: {h.name}')
-                                # print(f'  Arms: {a.name}')
-                                # print(f'  Body: {b.name}')
-                                # print(f'  Legs: {l.name}')
-                                # print(f'  Cost: {e.cost}')
-                                # print('-----')
-                                # print(f'  ST: {ep.strength:2} ({e.strength:+})')
-                                # print(f'  SP: {ep.speed:2} ({e.speed:+})')
-                                # print(f'  SH: {ep.shooting:2} ({e.shooting:+})')
-                                # print(f'  PA: {ep.passing:2} ({e.passing:+})')
-                                # print(f'  TE: {ep.technique:2} ({e.technique:+})')
-                                # print('==========')
-    return candidates
+                    sets.append(EquipmentSet(h, a, b, l))
+    return sets
 
 
-def emit(candidates):
-    # print(len(candidates))
-    # return
-    for p, t, ep in candidates:
+def generate_candidates(equipment_sets):
+    for p in players:
+        for t in archetypes:
+            candidates = []
+            for e in equipment_sets:
+                ep = EquippedPlayer(p, e)
+                if t.satisfies(ep):
+                    candidates.append(ep)
+            print_top_candidates(p, t, candidates)
+
+
+def print_top_candidates(p, t, candidates):
+
+    ordered_candidates = t.sorter.sort(candidates)
+    top_candidates = ordered_candidates[:10] if len(ordered_candidates) > 10 else ordered_candidates
+
+    print(f'{p.name} ({t.name})')
+    for ep in top_candidates:
         elems = [
             p.name,
             t.name,
@@ -49,11 +42,12 @@ def emit(candidates):
             ep.get(Stat.ST), ep.get(Stat.SP), ep.get(Stat.SH), ep.get(Stat.PA), ep.get(Stat.TE),
         ]
         print('\t'.join([str(elem) for elem in elems]))
+    print()
 
 
 def main():
-    candidates = generate_candidates()
-    emit(candidates)
+    equipment_sets = generate_equipment_sets()
+    generate_candidates(equipment_sets)
 
 
 if __name__ == '__main__':
