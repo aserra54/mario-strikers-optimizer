@@ -10,33 +10,19 @@ class Player(StatBased):
         self.name = name
 
 
-@dataclass
-class EquippedPlayer:
-    player: Player
-    set: EquipmentSet
+class EquippedPlayer(StatBased):
 
-    @property
-    def strength(self):
-        return self.__safe_stat(self.player.get(Stat.ST) + self.set.get(Stat.ST))
-
-    @property
-    def speed(self):
-        return self.__safe_stat(self.player.get(Stat.SP) + self.set.get(Stat.SP))
-
-    @property
-    def shooting(self):
-        return self.__safe_stat(self.player.get(Stat.SH) + self.set.get(Stat.SH))
-
-    @property
-    def passing(self):
-        return self.__safe_stat(self.player.get(Stat.PA) + self.set.get(Stat.PA))
-
-    @property
-    def technique(self):
-        return self.__safe_stat(self.player.get(Stat.TE) + self.set.get(Stat.TE))
-
-    def __safe_stat(self, x):
-        return max(min(x, 25), 1)
+    def __init__(self, player, set):
+        safe = lambda x: max(min(x, 25), 1)
+        super().__init__(
+            safe(player.get(Stat.ST) + set.get(Stat.ST)),
+            safe(player.get(Stat.SP) + set.get(Stat.SP)),
+            safe(player.get(Stat.SH) + set.get(Stat.SH)),
+            safe(player.get(Stat.PA) + set.get(Stat.PA)),
+            safe(player.get(Stat.TE) + set.get(Stat.TE)),
+        )
+        self.player = player
+        self.set = set
 
 
 __raw_players = [

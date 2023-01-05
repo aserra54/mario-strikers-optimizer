@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from msbl.stat import Stat, StatBased
 
 
 class Archetype:
@@ -11,25 +11,15 @@ class Archetype:
         return self.checker.satisfies(equipped_player)
 
 
-@dataclass
-class StatChecker:
-    st: int = 0
-    sp: int = 0
-    sh: int = 0
-    pa: int = 0
-    te: int = 0
+class StatChecker(StatBased):
+
+    def __init__(self, st=0, sp=0, sh=0, pa=0, te=0):
+        super().__init__(st, sp, sh, pa, te)
 
     def satisfies(self, equipped_player):
-        if equipped_player.strength < self.st:
-            return False
-        if equipped_player.speed < self.sp:
-            return False
-        if equipped_player.shooting < self.sh:
-            return False
-        if equipped_player.passing < self.pa:
-            return False
-        if equipped_player.technique < self.te:
-            return False
+        for stat in [Stat.ST, Stat.SP, Stat.SH, Stat.PA, Stat.TE]:
+            if equipped_player.get(stat) < self.get(stat):
+                return False
         return True
 
 

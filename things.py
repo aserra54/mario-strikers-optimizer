@@ -3,6 +3,7 @@
 from msbl.archetype import *
 from msbl.equipment import *
 from msbl.player import *
+from msbl.stat import *
 
 
 def generate_candidates():
@@ -45,7 +46,7 @@ def emit(candidates):
             t.name,
             ep.set.cost,
             ep.set.head.name, ep.set.arms.name, ep.set.body.name, ep.set.legs.name,
-            ep.strength, ep.speed, ep.shooting, ep.passing, ep.technique,
+            ep.get(Stat.ST), ep.get(Stat.SP), ep.get(Stat.SH), ep.get(Stat.PA), ep.get(Stat.TE),
         ]
         print('\t'.join([str(elem) for elem in elems]))
 
