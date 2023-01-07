@@ -48,9 +48,14 @@ SUM = lambda s1, s2: lambda p: s1(p) + s2(p)
 
 
 archetypes = [
-    Archetype('Defender',   StatChecker(st=17, sp=17, pa=9, te=5),  StatSorter(SUM(_ST, _SP), _SP, _ST, SUM(_PA, _TE), _PA, _TE)),
-    Archetype('Midfielder', StatChecker(st=17, sp=9, pa=17, te=5),  StatSorter(SUM(_ST, _PA), _ST, _PA, SUM(_SP, _TE), _SP, _TE)),
-    Archetype('Playmaker',  StatChecker(st=9, sp=17, pa=17, te=9),  StatSorter(SUM(_SP, _PA), _PA, _SP, SUM(_ST, _TE), _TE, _ST)),
-    Archetype('Sniper',     StatChecker(st=10, sp=7, sh=17, te=17), StatSorter(SUM(_SH, _TE), _SH, _TE, SUM(_ST, _SP), _ST, _SP)),
-    Archetype('Striker',    StatChecker(st=17, sp=7, sh=17, te=10), StatSorter(SUM(_ST, _SH), _SH, _ST, SUM(_TE, _SP), _TE, _SP)),
+    Archetype('Defender', StatChecker(st=17, sp=17, sh= 5, pa=10, te= 7), StatSorter(SUM(_SP, _ST), _SP, _ST, SUM(_PA, _TE), _PA, _TE)),
+    Archetype('Finisher', StatChecker(st= 7, sp=17, sh=10, pa= 5, te=17), StatSorter(SUM(_TE, _SP), _TE, _SP, SUM(_SH, _ST), _SH, _ST)),
+    Archetype('Midfielder', StatChecker(st=17, sp=10, sh= 5, pa=17, te= 7), StatSorter(SUM(_ST, _PA), _ST, _PA, SUM(_SP, _TE), _SP, _TE)),
+    Archetype('Playmaker', StatChecker(st=10, sp=17, sh= 5, pa=17, te= 7), StatSorter(SUM(_PA, _SP), _PA, _SP, SUM(_ST, _TE), _ST, _TE)),
+    Archetype('Poacher', StatChecker(st=15, sp= 6, sh=15, pa= 5, te=15), StatSorter(SUM(_TE, _ST), _TE, _ST, SUM(_SH, _SP), _SH, _SP)),
+    Archetype('Speedster', StatChecker(st=11, sp=15, sh=15, pa= 5, te=10), StatSorter(SUM(_SH, _SP), _SH, _SP, SUM(_ST, _TE), _ST, _TE)),
+    Archetype('Sniper', StatChecker(st=10, sp= 7, sh=17, pa= 5, te=17), StatSorter(SUM(_SH, _TE), _SH, _TE, SUM(_ST, _SP), _ST, _SP)),
+    Archetype('Striker', StatChecker(st=17, sp= 7, sh=17, pa= 5, te=10), StatSorter(SUM(_SH, _ST), _SH, _ST, SUM(_TE, _SP), _TE, _SP)),
+    Archetype('Sweeper', StatChecker(st= 5, sp=15, sh= 6, pa=15, te=15), StatSorter(SUM(_PA, _TE), _PA, _TE, SUM(_SP, _SH), _SP, _SH)),
+    Archetype('Winger', StatChecker(st= 5, sp=11, sh=15, pa=15, te=10), StatSorter(SUM(_SH, _PA), _SH, _PA, SUM(_SP, _TE), _SP, _TE)),
 ]
