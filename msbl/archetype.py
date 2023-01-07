@@ -44,7 +44,7 @@ _SP = lambda p: p.get(Stat.SP)
 _SH = lambda p: p.get(Stat.SH)
 _PA = lambda p: p.get(Stat.PA)
 _TE = lambda p: p.get(Stat.TE)
-SUM = lambda s1, s2: lambda p: s1(p) + s2(p)
+SUM = lambda *args: lambda p: sum([arg(p) for arg in args])
 
 
 archetypes = [
