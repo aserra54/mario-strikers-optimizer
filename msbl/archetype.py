@@ -13,6 +13,7 @@ class Archetype:
 
 
 class StatChecker(StatBased):
+    '''Used for validating that the stats of a player with equipment exceeds a specified set of minimum values.'''
 
     def __init__(self, st=0, sp=0, sh=0, pa=0, te=0):
         super().__init__(st, sp, sh, pa, te)
@@ -25,6 +26,8 @@ class StatChecker(StatBased):
 
 
 class StatSorter:
+    '''Used for ordering a list of equipped players based on a series of callbacks used to determine the preference of
+    an equipment set.'''
 
     def __init__(self, *order):
         self.order = order
